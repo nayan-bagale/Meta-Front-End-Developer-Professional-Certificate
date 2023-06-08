@@ -4,17 +4,23 @@ function App() {
   const [user, setUser] = React.useState([]);
 
   const fetchData = () => {
-
+    fetch("https://randomuser.me/api/?results=1")
+      .then((responce) => responce.json())
+      .then((data) => setUser(data));
   };
 
   React.useEffect(() => {
-    fetchData();
+    fetchData()
   }, []);
 
   return Object.keys(user).length > 0 ? (
-    <div style={{padding: "40px"}}>
+    <div style={{ padding: "40px" }}>
       <h1>Customer data</h1>
-
+      <h2>{user.results[0].name.first}</h2>
+      <img
+        src={user.results[0].picture.large}
+        alt=""
+      />
     </div>
   ) : (
     <h1>Data pending...</h1>
